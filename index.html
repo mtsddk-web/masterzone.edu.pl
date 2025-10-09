@@ -1944,8 +1944,7 @@
         // Fetch live member count from stats.json
         async function updateMemberCount() {
             try {
-                const response = await fetch('/stats.json?t=' + Date.now());
-                
+fetch('https://raw.githubusercontent.com/mtsddk-web/masterzone.edu.pl/main/stats.json?t=' + Date.now())                
                 if (!response.ok) {
                     console.log('stats.json not found, using default count');
                     return;

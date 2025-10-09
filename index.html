@@ -495,7 +495,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
+            right: 0;            
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--urgent), transparent);
         }
@@ -1941,6 +1941,39 @@
                 console.log('Found particles:', particles.length);
             }, 500);
         });
+        // Fetch live member count from stats.json
+        async function updateMemberCount() {
+            try {
+                const response = await fetch('/stats.json?t=' + Date.now());
+                
+                if (!response.ok) {
+                    console.log('stats.json not found, using default count');
+                    return;
+                }
+                
+                const data = await response.json();
+                const memberCount = data.memberCount;
+                
+                console.log('✅ Live member count from Apify:', memberCount);
+                
+                // Update the first stat (Aktywnych członków)
+                const firstStatNumber = document.querySelectorAll('.stat-number')[0];
+                
+                if (firstStatNumber && memberCount) {
+                    // Update data-target attribute
+                    firstStatNumber.setAttribute('data-target', memberCount);
+                    
+                    console.log('✅ Member count updated to:', memberCount);
+                }
+                
+            } catch (error) {
+                console.error('Error loading member count:', error);
+                // Fallback to default value (22)
+            }
+        }
+
+        // Call on page load
+        updateMemberCount();
     </script>
 </body>
 </html>

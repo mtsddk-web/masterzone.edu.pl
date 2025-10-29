@@ -1264,7 +1264,7 @@
 
             <div class="stats">
                 <div class="stat">
-                    <span class="stat-number" data-target="22">0</span>
+                    <span class="stat-number" data-target="33">0</span>
                     <span class="stat-label">Aktywnych członków</span>
                 </div>
                 <div class="stat">
@@ -1959,7 +1959,8 @@
         // Fetch live member count from stats.json
         async function updateMemberCount() {
             try {
-fetch('https://raw.githubusercontent.com/mtsddk-web/masterzone.edu.pl/main/stats.json?t=' + Date.now())                
+                const response = await fetch('https://raw.githubusercontent.com/mtsddk-web/masterzone.edu.pl/main/stats.json?t=' + Date.now());
+
                 if (!response.ok) {
                     console.log('stats.json not found, using default count');
                     return;
